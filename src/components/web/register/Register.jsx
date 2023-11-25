@@ -1,9 +1,9 @@
 import React from 'react'
-import Input from '../../pages/input';
 import { useFormik } from 'formik';
 import {registerSchema } from './../validation/validate';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Input from './../../pages/Input';
 
 
 
