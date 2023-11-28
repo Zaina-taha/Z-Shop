@@ -4,3 +4,7 @@ export const registerSchema=yup.object({
     email:yup.string().email().required("email is required"),
     password:yup.string().required("password is required").min(3,"must be at least 3 char").max(30,"must be 30 char max")
 })
+export const loginSchema=yup.object({
+    email:yup.string().email().required("email is required"),
+    password:yup.string().required("password is required").min(3,"must be at least 3 char").max(30,"must be 30 char max")
+})
