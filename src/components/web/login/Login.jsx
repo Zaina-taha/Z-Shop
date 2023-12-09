@@ -1,30 +1,32 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useFormik } from 'formik';
 import { loginSchema} from './../validation/validate';
 import { toast } from 'react-toastify';
 import Input from './../../pages/Input';
 import axios  from 'axios';
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import { userContext } from '../context/User';
 
 
 
-export default function Login({saveCurrentUser}) {
+export default function Login() {
     const navigate=useNavigate();
-    
+    let{userToken,setUserToken}=useContext(userContext);
+    if(userToken){
+        navigate(-1);
+    }
     const initialValues = {
         email: '',
         password:''
 
     };
-
     const onSubmit = async users => {
         const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signin`,users);
         console.log(data);
-        if (data.message == 'succsess') {
-           
+        if (data.message == "success") {
             localStorage.setItem("userToken",data.token);
-            saveCurrentUser();
-            navigate('/home');
+            setUserToken(data.token);
+            navigate('/');
         }
 
 
@@ -76,6 +78,7 @@ export default function Login({saveCurrentUser}) {
             <form onSubmit={formik.handleSubmit}>
                 {renderInputs}
                 <button type='submit' disabled={!formik.isValid}>Register</button>
+                <Link to={'/forgotPassword'}>ForgotPassword</Link>
             </form>
         </div>
     )

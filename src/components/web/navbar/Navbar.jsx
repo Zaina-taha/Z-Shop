@@ -1,15 +1,31 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link,useNavigate } from 'react-router-dom'
+import { userContext } from '../context/User';
+import { CartContext } from './../context/Cart';
+import { useQuery } from 'react-query';
 
-export default function Navbar({user,setUser}) {
-   
-   const navigate=useNavigate();
-   const logout=()=>{
+export default function Navbar() {
+
+  let{userToken,setUserToken,userData,setUserData}=useContext(userContext);
+  let{getCartContext}=useContext(CartContext);
+  const getdata = async () => {
+    const res = await getCartContext();
+    return res;
+}
+const { data, isLoading } = useQuery('cart', getdata);
+
+  // console.log(userData);
+  const navigate=useNavigate();
+  const logout=()=>{
     localStorage.removeItem('userToken');
-    setUser(null);
-    navigate('/home');
+    setUserToken(null);
+    setUserData(null);
+    navigate('/');
 
-   }
+  }
+  if(isLoading){
+    return "LOAdInG...";
+  }
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -29,30 +45,41 @@ export default function Navbar({user,setUser}) {
         <li className="nav-item">
           <a className="nav-link" href="#">Categories</a>
         </li>
-
-
         <li className="nav-item">
         <a className="nav-link" href="#">Products</a>
       </li>
-      {user&&<li className="nav-item">
-        <a className="nav-link" href="#">cart</a>
-      </li>}
-     
-     
+        {userToken?(
+           <li className="nav-item position-relative">
+           <Link className="nav-link" to={'/cart'}>cart</Link>
+           <div className='position-absolute top-0 end-0 '>
+           <div className='rounded-circle bg-warning d-flex justify-content-center'>
+            {/* if(data){
+              {data.count}
+            } */}
+            {data!=null?(
+              data.count
+            ):"0"}
+
+           </div>
+           </div>
+         </li>
+        ):null}     
       </ul>
       <ul className="navbar-nav">
       <li className="nav-item dropdown">
       <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Dropdown
-      </a>
+            {userData!=null?userData.user.userName:"Account"}
+              </a>
       <ul className="dropdown-menu ">
-        {!user? <>
+        {userToken==null?(
+          <>
           <li><Link className="dropdown-item" to="/register">register</Link></li>
           <li><hr className="dropdown-divider" /></li>
           <li><Link className="dropdown-item" to="/login">login</Link></li>
-        </>:
+        </>
+        ) :
         <>
-          <li><Link className="dropdown-item" to="/register">profile</Link></li>
+          <li><Link className="dropdown-item" to="/profile">profile</Link></li>
           <li><hr className="dropdown-divider" /></li>
           <li><Link className="dropdown-item" onClick={logout}>logout</Link></li>
         </>

@@ -20,7 +20,7 @@ export default function Register() {
     }
     const onSubmit = async users => {
         const formData = new FormData();
-        formData.append("username", users.userName);
+        formData.append("userName", users.userName);
         formData.append("email", users.email);
         formData.append("password", users.password);
         formData.append("image", users.image);
@@ -28,7 +28,7 @@ export default function Register() {
 
         const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signup`,formData);
         console.log(data);
-        if (data && data.message == 'succsess') {
+        if (data.message == "success") {
             formik.resetForm();
             toast.success('account created successfuly ,please confirm your email', {
                 position: "bottom-center",
