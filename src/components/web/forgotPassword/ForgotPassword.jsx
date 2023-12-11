@@ -4,6 +4,7 @@ import axios  from 'axios';
 import { toast } from 'react-toastify';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import { ForgotPasswordSchema } from '../validation/validate';
 
 export default function ForgotPassword() {
     const navigate=useNavigate();
@@ -33,6 +34,8 @@ export default function ForgotPassword() {
     const formik = useFormik({
         initialValues,
         onSubmit,
+        validationSchema:ForgotPasswordSchema,
+
     });
     const inputs = [
 

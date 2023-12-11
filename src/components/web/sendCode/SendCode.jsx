@@ -3,6 +3,7 @@ import axios  from 'axios';
 import Input from '../../pages/Input';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import { SendCodeSchema } from '../validation/validate';
 
 
 
@@ -25,6 +26,8 @@ export default function SendCode() {
     const formik = useFormik({
         initialValues,
         onSubmit,
+        validationSchema:SendCodeSchema,
+
 
     });
 
