@@ -2,9 +2,10 @@ import React, { useContext } from 'react'
 import "./Cart.css"
 import { useQuery } from 'react-query';
 import { CartContext } from '../context/Cart';
+import { Link } from 'react-router-dom';
 
 export default function Cart() {
-    const { getCartContext,removeItemContext } = useContext(CartContext);
+    const { getCartContext,removeItemContext,clearCartContext,increaseQtyContext,decreaseQtyContext} = useContext(CartContext);
 
     const getdata = async () => {
         const res = await getCartContext();
@@ -14,7 +15,40 @@ export default function Cart() {
     const removeItem = async(productId)=>{
         try {
             const res=await removeItemContext(productId);
-        return res; 
+            return res; 
+
+        } catch (error) {
+            console.log(error);
+        }
+        
+    }
+
+    const removeData=async()=>{
+        try {
+            const res=await clearCartContext();
+            return res;
+        } catch (error) {
+            console.log("error")
+            console.log(error);
+         }
+
+    }
+
+    const increaseQty = async(productId)=>{
+        try {
+            const res=await increaseQtyContext(productId);
+            return res; 
+
+        } catch (error) {
+            console.log(error);
+        }
+        
+    }
+    const decreaseQty = async(productId)=>{
+        try {
+            const res=await decreaseQtyContext(productId);
+            return res; 
+
         } catch (error) {
             console.log(error);
         }
@@ -77,7 +111,7 @@ export default function Cart() {
                                     </div>
                                 </div>
                                 <div className="quantity">
-                                    <button>
+                                {product.quantity>1? <button onClick={()=>decreaseQty(product.details._id)}>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             width={16}
@@ -93,9 +127,11 @@ export default function Cart() {
                                                 strokeLinejoin="round"
                                             />
                                         </svg>
-                                    </button>
-                                    <span>1</span>
-                                    <button>
+                                    </button>:null}
+                                   
+                                    <span >{product.quantity}</span>
+                                   
+                                    <button onClick={()=>increaseQty(product.details._id)}>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             width={16}
@@ -116,6 +152,9 @@ export default function Cart() {
                                 <div className="subtotal">{product.details.price*product.quantity}</div>
                             </div>
                             )):'No data found'}
+                            <div className='d-flex justify-content-center'>
+                            <button className='btn btn-outline-danger h-100 border border-danger' onClick={removeData}>Clear Cart</button>
+                            </div>
                         </div>
                         <div className="cart-summary">
                             <h2>Cart summary</h2>
@@ -147,7 +186,7 @@ export default function Cart() {
                                     <span>$1345.00</span>
                                 </div>
                                 <div className="checkout">
-                                    <a href="#">Chekout</a>
+                                    <Link to={'/createOrder'}>Chekout</Link>
                                 </div>
                             </div>
                         </div>

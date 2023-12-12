@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 export const CartContext=createContext(null);
 
 export function CartContextProvider({children}){
-    let[count,setCount]=useState(0);
 
     const AddToCartContext=async(productId)=>{
         try {
@@ -60,9 +59,60 @@ export function CartContextProvider({children}){
 
     }
 
+    const clearCartContext=async()=>{
+        try {
+        const token=localStorage.getItem('userToken');
+        const {data}=await axios.patch(`${import.meta.env.VITE_API_URL}/cart/clear`,
+        {},
+        {headers:{Authorization:`Tariq__${token}`}});
+        return data;
+        } catch (error) {
+        console.log(error); 
+        }
     
 
-    return <CartContext.Provider value={{AddToCartContext,getCartContext,removeItemContext}} >
+    }
+    
+    const increaseQtyContext=async(productId)=>{
+        try {
+        const token=localStorage.getItem('userToken');
+        const {data}=await axios.patch(`${import.meta.env.VITE_API_URL}/cart/incraseQuantity`,
+        {productId}
+        ,{headers:{Authorization:`Tariq__${token}`}});
+        return data;
+        } catch (error) {
+        console.log(error); 
+        }
+    
+
+    }
+    const decreaseQtyContext=async(productId)=>{
+        try {
+        const token=localStorage.getItem('userToken');
+        const {data}=await axios.patch(`${import.meta.env.VITE_API_URL}/cart/decraseQuantity`,
+        {productId}
+        ,{headers:{Authorization:`Tariq__${token}`}});
+        return data;
+        } catch (error) {
+        console.log(error); 
+        }
+    
+
+    }
+    const getOrderContext=async()=>{
+        try {
+        const token=localStorage.getItem('userToken');
+        const {data}=await axios.get(`${import.meta.env.VITE_API_URL}/order`
+        ,{headers:{Authorization:`Tariq__${token}`}});
+        return data;
+        } catch (error) {
+        console.log(error); 
+        }
+    
+
+    }
+
+    return <CartContext.Provider value={{AddToCartContext,getCartContext,removeItemContext,clearCartContext,decreaseQtyContext,increaseQtyContext,getOrderContext}} >
      {children}
     </CartContext.Provider>
 }

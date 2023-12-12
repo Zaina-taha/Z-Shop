@@ -27,7 +27,7 @@ export default function Products() {
             <div className="row">
                 <div className="col-lg-4">
                     {data.subImages.map((img, index) =>
-                       <img src={img.secure_url} alt='products'/>
+                       <img src={img.secure_url} height="400px" width="300px" alt='products'/>
                     )}
                 </div>
                 <div className="col-lg-8">

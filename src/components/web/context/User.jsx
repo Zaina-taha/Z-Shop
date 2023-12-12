@@ -14,18 +14,16 @@ export function UserContextProvider({children}){
                 const {data}=await axios.get(`${import.meta.env.VITE_API_URL}/user/profile`,
                 {headers:{authorization:`Tariq__${userToken}`}});
                 console.log(data);
+                setLoader(false);
                 setUserData(data);
                 
             }
     }
-    // if(loader){
-    //     return "Loading.."
-    // }
+
     useEffect(()=>{
         getUserData();
-        setLoader(false);
     },[userToken])
-    return <userContext.Provider value={{userToken,setUserToken,userData,setUserData}}>
+    return <userContext.Provider value={{userToken,setUserToken,userData,setUserData,loader}}>
         {children}
     </userContext.Provider>
 
