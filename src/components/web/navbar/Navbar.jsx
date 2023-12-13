@@ -52,9 +52,6 @@ export default function Navbar() {
                   data.count
                 ) : "0"}</span></Link>
               </li>
-              <li className="nav-item position-relative">
-                <Link className="nav-link" to={'/getOrder'}>GetOrders</Link>
-              </li>
               </> 
             ) : null}
           </ul>

@@ -104,6 +104,7 @@ export function CartContextProvider({children}){
         const token=localStorage.getItem('userToken');
         const {data}=await axios.get(`${import.meta.env.VITE_API_URL}/order`
         ,{headers:{Authorization:`Tariq__${token}`}});
+        console.log(data.orders);
         return data;
         } catch (error) {
         console.log(error); 

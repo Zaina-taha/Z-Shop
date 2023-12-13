@@ -17,7 +17,7 @@ import ForgotPassword from "../components/web/forgotPassword/ForgotPassword";
 import UserInfo from "../components/web/profile/UserInfo";
 import UserContact from "../components/web/profile/UserContact";
 import CreateOrder from "../components/web/createOrder/CreateOrder";
-import GetOrder from "../components/web/getOrder/GetOrder";
+import GetOrder from './../components/web/profile/GetOrder';
 
 
 export const router = createBrowserRouter([
@@ -70,6 +70,10 @@ export const router = createBrowserRouter([
               path:'contact',
               element:<UserContact/>
             },
+            {
+              path:'getOrder',
+              element:<GetOrder/>
+            },
           ]
         },
         {
@@ -84,10 +88,7 @@ export const router = createBrowserRouter([
           path:'createOrder',
           element:<CreateOrder/>
         },
-        {
-          path:'getOrder',
-          element:<GetOrder/>
-        },
+       
         {
           path:'*',
           element:<h2>page not found --- web</h2>
