@@ -16,7 +16,6 @@ export default function Register() {
     };
     const handleFieledChange = (event) => {
         formik.setFieldValue('image', event.target.files[0]);
-        console.log(event);
     }
     const onSubmit = async users => {
         const formData = new FormData();
@@ -27,7 +26,6 @@ export default function Register() {
         
 
         const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signup`,formData);
-        console.log(data);
         if (data.message == "success") {
             formik.resetForm();
             toast.success('account created successfuly ,please confirm your email', {
@@ -41,7 +39,6 @@ export default function Register() {
                 theme: "colored",
             });
         }
-        console.log(data);
 
 
     };

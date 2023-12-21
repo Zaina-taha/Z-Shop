@@ -24,7 +24,7 @@ body {
 }
 
 .btn {
-    height: 140px;
+    /* height: 140px; */
     width: 140px;
     border-radius: 50%
 }

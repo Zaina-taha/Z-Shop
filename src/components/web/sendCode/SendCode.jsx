@@ -15,7 +15,6 @@ export default function SendCode() {
     };
     const onSubmit = async users => {
         const { data } = await axios.patch(`${import.meta.env.VITE_API_URL}/auth/sendcode`,users);
-        console.log(data);
         if (data.message == "success") {
             
             navigate('/forgotPassword');

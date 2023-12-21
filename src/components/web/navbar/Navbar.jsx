@@ -15,7 +15,6 @@ export default function Navbar() {
 
   const { data, isLoading } = useQuery('cart', getdata);
 
-  // console.log(userData);
   const navigate = useNavigate();
   const logout = () => {
     localStorage.removeItem('userToken');
@@ -43,7 +42,7 @@ export default function Navbar() {
               <a className="nav-link" href="#">Categories</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Products</a>
+              <Link className="nav-link" to={'/getAllProducts'}>Products</Link>
             </li>
             {userToken ? (
               <>

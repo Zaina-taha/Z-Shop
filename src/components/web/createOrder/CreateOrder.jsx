@@ -28,7 +28,6 @@ export default function CreateOrder() {
         const token=localStorage.getItem('userToken');
         const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/order`,users,
         {headers:{Authorization:`Tariq__${token}`}});
-        console.log(data);
         if (data.message == "success") {
             toast.success('Order created successfully', {
                 position: "bottom-center",

@@ -18,6 +18,8 @@ import UserInfo from "../components/web/profile/UserInfo";
 import UserContact from "../components/web/profile/UserContact";
 import CreateOrder from "../components/web/createOrder/CreateOrder";
 import GetOrder from './../components/web/profile/GetOrder';
+import GetAllProducts from "../components/web/getAllProducts/GetAllProducts";
+import Review from "../components/web/products/Review";
 
 
 export const router = createBrowserRouter([
@@ -47,6 +49,10 @@ export const router = createBrowserRouter([
         {
           path:'products/:productId',
           element:<Products/>
+        },
+        {
+          path:'products/:productId/review',
+          element:<Review/>
         },
         {
           path:'cart',
@@ -87,6 +93,10 @@ export const router = createBrowserRouter([
         {
           path:'createOrder',
           element:<CreateOrder/>
+        },
+        {
+          path:'getAllProducts',
+          element:<GetAllProducts/>
         },
        
         {

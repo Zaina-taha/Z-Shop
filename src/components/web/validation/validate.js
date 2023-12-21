@@ -30,3 +30,10 @@ export const CreateOrderSchema=yup.object({
 
 
 })
+export const CreateReviewSchema=yup.object({
+    
+    comment:yup.string().required("comment is required"),
+    rating:yup.string().required("Rating is required").length(1),
+
+
+})
